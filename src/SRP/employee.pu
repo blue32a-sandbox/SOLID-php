@@ -1,0 +1,24 @@
+@startuml
+class EmployeeData
+
+class PayCalculator
+PayCalculator : calculatePay()
+
+class HourReporter
+HourReporter : reportHours()
+
+class EmployeeSaver
+EmployeeSaver : saveEmployee()
+
+class EmployeeFacade
+EmployeeFacade : calculatePay()
+EmployeeFacade : reportHours()
+EmployeeFacade : save()
+
+PayCalculator --> EmployeeData
+HourReporter --> EmployeeData
+EmployeeSaver --> EmployeeData
+EmployeeFacade --> PayCalculator
+EmployeeFacade --> HourReporter
+EmployeeFacade --> EmployeeSaver
+@enduml
