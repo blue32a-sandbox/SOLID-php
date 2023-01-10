@@ -5,3 +5,7 @@ services:
     build: ./docker/php
     volumes:
       - .:/var/www/html
+      - composer-vendor:/var/www/html/vendor
+
+volumes:
+  composer-vendor:
