@@ -1,0 +1,67 @@
+@startuml
+package "Interactor" {
+    class     FinancialReportGenerator
+    class     FinancialReportRequest
+    interface FinancialReportRequester
+    class     FinancialReportResponse
+    interface FinancialDataGateway
+
+    FinancialReportGenerator --|> FinancialReportRequester
+    FinancialReportGenerator --> FinancialReportRequest
+    FinancialReportGenerator --> FinancialReportResponse
+    FinancialReportGenerator --> FinancialDataGateway
+}
+
+package "Database" {
+    class FinancialDataMapper
+    class FinancialDatabase
+
+    FinancialDataMapper --|> FinancialDataGateway
+    FinancialDataMapper --> FinancialDatabase
+}
+
+package "Controller" {
+    class     FinancialReportController
+    interface FinancialReportPresenter
+
+    FinancialReportController --> FinancialReportPresenter
+    FinancialReportController --> FinancialReportRequest
+    FinancialReportController --> FinancialReportRequester
+    FinancialReportController --> FinancialReportResponse
+    FinancialReportPresenter --> FinancialReportResponse
+}
+
+package "ScreenPresenter" {
+    class     ScreenPresenter
+    class     ScreenViewModel
+    interface ScreenView
+
+    ScreenPresenter --|> FinancialReportPresenter
+    ScreenPresenter --> ScreenViewModel
+    ScreenPresenter --> ScreenView
+    ScreenView --> ScreenViewModel
+}
+
+package "PrintPresenter" {
+    class     PrintPresenter
+    class     PrintViewModel
+    interface PrintView
+
+    PrintPresenter --|> FinancialReportPresenter
+    PrintPresenter --> PrintViewModel
+    PrintPresenter --> PrintView
+    PrintView --> PrintViewModel
+}
+
+package "WebView" {
+    class WebView
+
+    WebView --|> ScreenView
+}
+
+package "PDFView" {
+    class PDFView
+
+    PDFView --|> PrintView
+}
+@enduml
